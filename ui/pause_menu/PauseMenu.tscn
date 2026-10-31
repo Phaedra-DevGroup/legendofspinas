@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpausemenu01"]
+
+[ext_resource type="Script" path="res://ui/pause_menu/PauseMenu.gd" id="1_pause"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn.ttf" id="2_font"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn-Bold.ttf" id="3_bold"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.08, 0.1, 0.13, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.88, 0.74, 0.32, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sep"]
+color = Color(0.35, 0.75, 0.7, 0.4)
+thickness = 1
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 30
+visible = false
+script = ExtResource("1_pause")
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 0.8)
+
+[node name="CenterContainer" type="CenterContainer" parent="DarkOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalPanel" type="PanelContainer" parent="DarkOverlay/CenterContainer"]
+custom_minimum_size = Vector2(230, 210)
+layout_mode = 2
+pivot_offset = Vector2(115, 105)
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="MarginContainer" type="MarginContainer" parent="DarkOverlay/CenterContainer/ModalPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Title" type="Label" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+text = "توقف بازی"
+horizontal_alignment = 1
+text_direction = 3
+language = "fa"
+
+[node name="Subtitle" type="Label" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.4, 0.85, 0.8, 0.85)
+text = "افسانه اسپیناس"
+horizontal_alignment = 1
+text_direction = 3
+language = "fa"
+
+[node name="HSeparator" type="HSeparator" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sep")
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ResumeBtn" type="Button" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer/ButtonsVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 11
+text = "ادامه بازی"
+text_direction = 3
+language = "fa"
+
+[node name="CheckpointBtn" type="Button" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer/ButtonsVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 11
+text = "بازگشت به آخرین چک‌پوینت"
+text_direction = 3
+language = "fa"
+
+[node name="RestartBtn" type="Button" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer/ButtonsVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 11
+text = "شروع مجدد مرحله"
+text_direction = 3
+language = "fa"
+
+[node name="MenuBtn" type="Button" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer/ButtonsVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 11
+text = "منوی اصلی"
+text_direction = 3
+language = "fa"
+
+[node name="ExitBtn" type="Button" parent="DarkOverlay/CenterContainer/ModalPanel/MarginContainer/VBoxContainer/ButtonsVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 11
+text = "خروج از بازی"
+text_direction = 3
+language = "fa"

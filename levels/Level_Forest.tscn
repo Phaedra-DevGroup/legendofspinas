@@ -1,0 +1,757 @@
+[gd_scene load_steps=32 format=3]
+
+[ext_resource type="Script" path="res://levels/Level_Forest.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://characters/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://ui/touch_controls/TouchControls.tscn" id="5_touch"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn.ttf" id="6_font"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn-Bold.ttf" id="7_bold"]
+[ext_resource type="PackedScene" path="res://ui/pause_menu/PauseMenu.tscn" id="31_pause"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_menu_normal.png" id="32_menu_norm"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_menu_pressed.png" id="33_menu_press"]
+[ext_resource type="Texture2D" path="res://assets/ui/theme/icon_scrap.png" id="41_icon_scrap"]
+[ext_resource type="Script" path="res://levels/ZoneBackdrop.gd" id="40_backdrop"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/forest/forest_floor.png" id="50_floor"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/forest/log_ledge.png" id="51_log"]
+[ext_resource type="PackedScene" path="res://characters/enemies/root_stalker/RootStalker.tscn" id="52_stalker"]
+[ext_resource type="PackedScene" path="res://characters/enemies/mist_raven/MistRaven.tscn" id="53_raven"]
+[ext_resource type="PackedScene" path="res://characters/enemies/spore_crawler/SporeCrawler.tscn" id="54_crawler"]
+[ext_resource type="PackedScene" path="res://components/collectibles/AncientScrapCollectible.tscn" id="55_scrap"]
+[ext_resource type="PackedScene" path="res://components/collectibles/GoldenPomegranate.tscn" id="56_pom"]
+[ext_resource type="PackedScene" path="res://components/interactables/LoreStele.tscn" id="57_stele"]
+[ext_resource type="PackedScene" path="res://components/interactables/ZalSanctuary.tscn" id="58_zal"]
+[ext_resource type="PackedScene" path="res://components/interactables/GrappleRing.tscn" id="59_ring"]
+[ext_resource type="PackedScene" path="res://components/interactables/BounceMushroom.tscn" id="60_mushroom"]
+[ext_resource type="PackedScene" path="res://components/interactables/CrumblingBranch.tscn" id="61_branch"]
+[ext_resource type="PackedScene" path="res://characters/hazards/AcidPool.tscn" id="62_acid"]
+[ext_resource type="PackedScene" path="res://components/interactables/BrambleWall.tscn" id="63_bramble"]
+[ext_resource type="PackedScene" path="res://npcs/atousa/Atousa.tscn" id="64_atousa"]
+[ext_resource type="PackedScene" path="res://characters/bosses/arboris/CorruptedArboris.tscn" id="65_arboris"]
+[ext_resource type="PackedScene" path="res://components/interactables/CavernMouth.tscn" id="66_cavern"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/forest/mushroom_cap_violet.png" id="67_cap_violet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(5600, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(20, 800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_log"]
+size = Vector2(128, 8)
+
+[node name="Level_Forest" type="Node2D"]
+script = ExtResource("1_level")
+music_track = "forest"
+carry_progress = true
+
+[node name="ZoneBackdrop" type="Node2D" parent="."]
+script = ExtResource("40_backdrop")
+zones = [["res://assets/sprites/environment/bg_forest_edge.png", -2000.0, 1350.0], ["res://assets/sprites/environment/bg_hollow.png", 1350.0, 2750.0], ["res://assets/sprites/environment/bg_grove.png", 2750.0, 8000.0]]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+position = Vector2(2500, 344)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/Floor"]
+z_index = 1
+texture_repeat = 2
+texture = ExtResource("50_floor")
+region_enabled = true
+region_rect = Rect2(0, 0, 5600, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(-10, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LeftBoundary"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(5010, 0)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/RightBoundary"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LoreStele1" parent="Environment" groups=["lore_steles"] instance=ExtResource("57_stele")]
+position = Vector2(270, 320)
+lore_title = "کتیبه دروازه بیشه"
+lore_text = "«اینجا مرز بیشه مقدس آتوساست. ای رهگذر، مه را بشکاف اما به ریشه‌ها بی‌حرمتی مکن. قارچ‌های فیروزه‌ای تو را تا شاخسار بالا می‌برند (اگر پرش را نگه داری، بلندتر!) و شاخه‌های پوسیده زیر پایت می‌شکنند.»"
+
+[node name="LogEdge1" type="StaticBody2D" parent="Environment"]
+position = Vector2(600, 252)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogEdge1"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogEdge1"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="Mushroom1" parent="Environment" instance=ExtResource("60_mushroom")]
+position = Vector2(470, 292)
+
+[node name="LogEdge2" type="StaticBody2D" parent="Environment"]
+position = Vector2(760, 186)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogEdge2"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogEdge2"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="AcidEdge" parent="Environment" instance=ExtResource("62_acid")]
+position = Vector2(905, 320)
+width = 110.0
+
+[node name="Mushroom2" parent="Environment" instance=ExtResource("60_mushroom")]
+position = Vector2(905, 288)
+
+[node name="LogEdge3" type="StaticBody2D" parent="Environment"]
+position = Vector2(1090, 240)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogEdge3"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogEdge3"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="ZalSanctuary1" parent="Environment" groups=["sanctuaries"] instance=ExtResource("58_zal")]
+position = Vector2(1290, 320)
+lore_title = "زال کهنسال (آواز مه)"
+lore_hint = "«مه این جنگل گوش دارد، فرزند... پیچک‌های جهنده زیر خاک کمین کرده‌اند و تا سر برنیاورده‌اند تیغت بر آنها کارگر نیست. بگذار بیرون بجهند، از تیغ‌هایشان جاخالی بده، آنگاه بزن!»"
+
+[node name="AcidHollow1" parent="Environment" instance=ExtResource("62_acid")]
+position = Vector2(1610, 320)
+width = 300.0
+
+[node name="Mushroom3" parent="Environment" instance=ExtResource("60_mushroom")]
+position = Vector2(1515, 292)
+
+[node name="Mushroom4" parent="Environment" instance=ExtResource("60_mushroom")]
+position = Vector2(1690, 270)
+
+[node name="Branch1" parent="Environment" instance=ExtResource("61_branch")]
+position = Vector2(1610, 196)
+
+[node name="LogHollow1" type="StaticBody2D" parent="Environment"]
+position = Vector2(1790, 150)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogHollow1"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogHollow1"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="LogHollow2" type="StaticBody2D" parent="Environment"]
+position = Vector2(1985, 246)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogHollow2"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogHollow2"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="AcidHollow2" parent="Environment" instance=ExtResource("62_acid")]
+position = Vector2(2330, 320)
+width = 340.0
+
+[node name="Branch2" parent="Environment" instance=ExtResource("61_branch")]
+position = Vector2(2215, 262)
+
+[node name="Branch3" parent="Environment" instance=ExtResource("61_branch")]
+position = Vector2(2335, 236)
+
+[node name="Branch4" parent="Environment" instance=ExtResource("61_branch")]
+position = Vector2(2455, 262)
+
+[node name="GrappleRing1" parent="Environment" instance=ExtResource("59_ring")]
+position = Vector2(2335, 140)
+
+[node name="LogHollow3" type="StaticBody2D" parent="Environment"]
+position = Vector2(2600, 204)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogHollow3"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogHollow3"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="LoreStele2" parent="Environment" groups=["lore_steles"] instance=ExtResource("57_stele")]
+position = Vector2(2690, 320)
+lore_title = "کتیبه نگهبان کهن"
+lore_text = "«آربوریس، کهن‌ترین درخت اسپیناس، قرن‌ها از دهانه غارهای بلورین پاسداری کرد. اکنون بلوری بنفش در پشتش می‌تپد و پوسته‌اش هر ضربه‌ای را از روبرو پس می‌زند. از پشت سر بر او بتاز، یا آنگاه که شاخه‌هایش در خاک فرو می‌رود.»"
+
+[node name="ZalSanctuary2" parent="Environment" groups=["sanctuaries"] instance=ExtResource("58_zal")]
+position = Vector2(2840, 320)
+lore_title = "زال کهنسال (نجوای بیشه)"
+lore_hint = "«ناله آتوسا را می‌شنوی؟ نزد او برو. اما بدان: در فاز خشم، آربوریس مه زهرآگین بر زمین می‌گستراند؛ آنگاه جای تو بر شاخه‌های بالاست، نه بر خاک.»"
+
+[node name="LogGrove1" type="StaticBody2D" parent="Environment"]
+position = Vector2(3000, 236)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogGrove1"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogGrove1"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="LogGrove2" type="StaticBody2D" parent="Environment"]
+position = Vector2(3330, 200)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogGrove2"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogGrove2"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="GroveBramble" parent="Environment" instance=ExtResource("63_bramble")]
+position = Vector2(3520, 320)
+
+[node name="LogArena1" type="StaticBody2D" parent="Environment"]
+position = Vector2(3770, 248)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogArena1"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogArena1"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="LogArena2" type="StaticBody2D" parent="Environment"]
+position = Vector2(4060, 196)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogArena2"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogArena2"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="LogArena3" type="StaticBody2D" parent="Environment"]
+position = Vector2(4420, 248)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LogArena3"]
+position = Vector2(0, 11)
+texture = ExtResource("51_log")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LogArena3"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_log")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="GrappleRing2" parent="Environment" instance=ExtResource("59_ring")]
+position = Vector2(4240, 118)
+
+[node name="CavernBramble" parent="Environment" instance=ExtResource("63_bramble")]
+position = Vector2(4630, 320)
+
+[node name="CavernMouth" parent="Environment" instance=ExtResource("66_cavern")]
+position = Vector2(4840, 320)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Scrap1" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(600, 228)
+
+[node name="Scrap2" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(760, 162)
+
+[node name="Scrap3" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(1090, 216)
+
+[node name="Scrap4" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(1790, 126)
+
+[node name="Scrap5" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(1985, 222)
+
+[node name="Scrap6" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(2335, 212)
+
+[node name="Scrap7" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(2600, 180)
+
+[node name="Scrap8" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(3000, 212)
+
+[node name="Scrap9" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(3330, 176)
+
+[node name="Scrap10" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(2120, 300)
+
+[node name="Scrap11" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(1180, 300)
+
+[node name="Scrap12" parent="Collectibles" instance=ExtResource("55_scrap")]
+position = Vector2(3180, 300)
+
+[node name="GoldenPomegranate1" parent="Collectibles" groups=["pomegranates"] instance=ExtResource("56_pom")]
+position = Vector2(1830, 122)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="RootStalker1" parent="Enemies" instance=ExtResource("52_stalker")]
+position = Vector2(690, 320)
+
+[node name="MistRaven1" parent="Enemies" instance=ExtResource("53_raven")]
+position = Vector2(1090, 228)
+
+[node name="RootStalker2" parent="Enemies" instance=ExtResource("52_stalker")]
+position = Vector2(1200, 320)
+
+[node name="SporeCrawler1" parent="Enemies" instance=ExtResource("54_crawler")]
+position = Vector2(1900, 320)
+
+[node name="SporeCrawler2" parent="Enemies" instance=ExtResource("54_crawler")]
+position = Vector2(2060, 320)
+
+[node name="MistRaven2" parent="Enemies" instance=ExtResource("53_raven")]
+position = Vector2(2600, 192)
+
+[node name="RootStalker3" parent="Enemies" instance=ExtResource("52_stalker")]
+position = Vector2(2560, 320)
+
+[node name="RootStalker4" parent="Enemies" instance=ExtResource("52_stalker")]
+position = Vector2(3060, 320)
+
+[node name="MistRaven3" parent="Enemies" instance=ExtResource("53_raven")]
+position = Vector2(3330, 188)
+
+[node name="Atousa" parent="." instance=ExtResource("64_atousa")]
+position = Vector2(3200, 320)
+
+[node name="BossArena" type="Node2D" parent="."]
+
+[node name="CorruptedArboris" parent="BossArena" instance=ExtResource("65_arboris")]
+position = Vector2(4300, 320)
+arena_left = 3640.0
+arena_right = 4560.0
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(120, 320)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -20)
+position_smoothing_enabled = true
+limit_left = 0
+limit_top = 0
+limit_right = 5000
+limit_bottom = 360
+
+[node name="TouchControls" parent="." instance=ExtResource("5_touch")]
+
+[node name="TopHUD" type="CanvasLayer" parent="."]
+layer = 15
+
+[node name="SafeArea" type="MarginContainer" parent="TopHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="TopRow" type="HBoxContainer" parent="TopHUD/SafeArea"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="StatusPanel" type="PanelContainer" parent="TopHUD/SafeArea/TopRow"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="StatusVBox" type="VBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="HeartsHBox" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="CountersHBox" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="ScrapIcon" type="TextureRect" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("41_icon_scrap")
+stretch_mode = 3
+
+[node name="ScrapsLabel" type="Label" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.98, 0.84, 0.45, 1)
+text = "۰"
+
+[node name="CounterGap" type="Control" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="KeystoneIcons" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="HeroStatus" type="Label" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.55, 0.9, 0.88, 0.9)
+text = "بردیا"
+text_direction = 3
+
+[node name="RowSpacer" type="Control" parent="TopHUD/SafeArea/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PauseBtn" type="TextureButton" parent="TopHUD/SafeArea/TopRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 0
+texture_normal = ExtResource("32_menu_norm")
+texture_pressed = ExtResource("33_menu_press")
+stretch_mode = 3
+
+[node name="TopCenter" type="VBoxContainer" parent="TopHUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 8.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="QuestPanel" type="PanelContainer" parent="TopHUD/TopCenter"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="QuestBanner" type="Label" parent="TopHUD/TopCenter/QuestPanel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.92, 0.9, 0.82, 1)
+text = "ماموریت: به کوره استاد پولاد در مرکز منطقه برسید."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_direction = 3
+
+[node name="BossHUD" type="VBoxContainer" parent="TopHUD/TopCenter"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="BossTitle" type="Label" parent="TopHUD/TopCenter/BossHUD"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 0.5, 0.55, 1)
+text = "سنگ‌شکن ویرانه‌ها (خادم مسخ‌شده مرگ‌مایه)"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="BossProgressBar" type="ProgressBar" parent="TopHUD/TopCenter/BossHUD"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+max_value = 20.0
+value = 20.0
+show_percentage = false
+
+[node name="ActionPromptPanel" type="PanelContainer" parent="TopHUD"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -36.0
+offset_right = 90.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="ActionPrompt" type="Label" parent="TopHUD/ActionPromptPanel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.55, 0.98, 0.92, 1)
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 3
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+layer = 20
+visible = false
+
+[node name="DialogueContainer" type="PanelContainer" parent="DialogueUI"]
+layout_direction = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -12.0
+offset_right = 270.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(230, 86)
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueUI/DialogueContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueUI/DialogueContainer/MarginContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SpeakerName" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.95, 0.8, 0.35, 1)
+text = "استاد پولاد"
+horizontal_alignment = 2
+text_direction = 3
+language = "fa"
+
+[node name="DialogueText" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+text = "درود بر تو شاگرد..."
+horizontal_alignment = 2
+autowrap_mode = 3
+text_direction = 3
+language = "fa"
+
+[node name="PromptHint" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 0.8)
+text = "[یک گزینه را انتخاب کنید]"
+horizontal_alignment = 2
+text_direction = 3
+language = "fa"
+
+[node name="ChoiceVBox" type="GridContainer" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="QuestBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "درخواست ماموریت"
+text_direction = 3
+language = "fa"
+
+[node name="UpgradeBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "ارتقای سلاح (۵ قطعه)"
+text_direction = 3
+language = "fa"
+
+[node name="HealBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "استراحت و درمان"
+text_direction = 3
+language = "fa"
+
+[node name="CloseBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "بازگشت"
+text_direction = 3
+language = "fa"
+
+[node name="VictoryUI" type="CanvasLayer" parent="."]
+layer = 25
+visible = false
+
+[node name="VictoryPanel" type="PanelContainer" parent="VictoryUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -90.0
+offset_right = 200.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(190, 105)
+
+[node name="MarginContainer" type="MarginContainer" parent="VictoryUI/VictoryPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VictoryUI/VictoryPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="VictoryTitle" type="Label" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+text = "پیروزی در آرک اول: ویرانه‌های اسپیناس"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="VictoryDesc" type="Label" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+text = "سنگ‌شکن ویرانه‌ها شکست خورد و مشعل باستانی چکاد شعله‌ور گشت. چرخ‌دنده باستانی کوره پولاد را بازافروخت و مسیر جنگل مه‌آلود (آرک دوم) گشوده شد!"
+autowrap_mode = 2
+text_direction = 3
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="RestartBtn" type="Button" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer/ButtonsHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 11
+text = "شروع مجدد دمو"
+
+[node name="MenuBtn" type="Button" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer/ButtonsHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 11
+text = "منوی اصلی"
+
+[node name="PauseMenu" parent="." instance=ExtResource("31_pause")]

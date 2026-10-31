@@ -1,0 +1,433 @@
+[gd_scene format=3 uid="uid://cmainmenu01"]
+
+[ext_resource type="Script" path="res://ui/main_menu/MainMenu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/bg_terraces.png" id="2_bg"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn.ttf" id="3_font"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn-Bold.ttf" id="4_bold"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_menu_bg"]
+atlas = ExtResource("2_bg")
+region = Rect2(0, 0, 640, 360)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_menu_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.03, 0.08, 0.45)
+
+[node name="TitleContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 28.0
+offset_right = 200.0
+offset_bottom = 95.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="GameTitle" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.96, 0.8, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_y = 2
+text = "افسانه اسپیناس"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="Subtitle" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.4, 0.9, 0.9, 1)
+text = "اشک آناهیتا"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="MenuCenter" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -45.0
+offset_right = 85.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainButtons" type="VBoxContainer" parent="MenuCenter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="StartBtn" type="Button" parent="MenuCenter/MainButtons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 12
+text = "شروع ماجراجویی"
+
+[node name="CharacterBtn" type="Button" parent="MenuCenter/MainButtons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "انتخاب قهرمان"
+
+[node name="SettingsBtn" type="Button" parent="MenuCenter/MainButtons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "تنظیمات"
+
+[node name="LoreBtn" type="Button" parent="MenuCenter/MainButtons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "داستان اسپیناس"
+
+[node name="ExitBtn" type="Button" parent="MenuCenter/MainButtons"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "خروج از بازی"
+
+[node name="Modals" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CharacterSelectModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 8.0
+offset_right = -20.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Modals/CharacterSelectModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Modals/CharacterSelectModal/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HeaderRow" type="HBoxContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CloseCharBtn" type="Button" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/HeaderRow"]
+custom_minimum_size = Vector2(84, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "بازگشت"
+
+[node name="Title" type="Label" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.96, 0.8, 0.35, 1)
+text = "قهرمان خود را برگزینید"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 3
+
+[node name="HeaderBalance" type="Control" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/HeaderRow"]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+
+[node name="CardsHBox" type="HBoxContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="BardiaCard" type="PanelContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/BardiaCard"]
+layout_mode = 2
+alignment = 1
+
+[node name="HeroName" type="Label" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/BardiaCard/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.4, 0.9, 0.9, 1)
+text = "بردیا (شاگرد آهنگر)"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="HeroDesc" type="Label" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/BardiaCard/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 10
+text = "• تخصص در نبرد تن‌به‌تن سنگین
+• مچ‌بند سنگی فیروزه‌ای و شلیک زلزله
+• قلاب برنزی برای صعود و تاب خوردن
+• ضربات سهمگین و دفاع قدرتمند"
+autowrap_mode = 3
+horizontal_alignment = 2
+text_direction = 3
+
+[node name="SelectBardiaBtn" type="Button" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/BardiaCard/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 11
+text = "انتخاب بردیا"
+
+[node name="RojanCard" type="PanelContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/RojanCard"]
+layout_mode = 2
+alignment = 1
+
+[node name="HeroName" type="Label" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/RojanCard/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.45, 0.9, 0.45, 1)
+text = "روژان (کماندار کوهستان)"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="HeroDesc" type="Label" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/RojanCard/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 10
+text = "• تخصص در تیراندازی دوربرد با کمان طبیعت
+• شلیک قدرتمند و شکافنده (Gale Piercer)
+• چابکی باد: سرعت ۱۶۰، پرش جفت و جهش دیواری
+• سر خوردن تندباد (Gale Slide) برای عبور از تیغ‌ها"
+autowrap_mode = 3
+horizontal_alignment = 2
+text_direction = 3
+
+[node name="SelectRojanBtn" type="Button" parent="Modals/CharacterSelectModal/MarginContainer/VBoxContainer/CardsHBox/RojanCard/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 11
+text = "انتخاب روژان"
+
+[node name="SettingsModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -100.0
+offset_right = 170.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(170, 100)
+
+[node name="MarginContainer" type="MarginContainer" parent="Modals/SettingsModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Modals/SettingsModal/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.96, 0.8, 0.35, 1)
+text = "تنظیمات بازی"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="SoundLabel" type="Label" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 10
+text = "میزان صدای جلوه‌ها (SFX):"
+horizontal_alignment = 2
+text_direction = 3
+
+[node name="SoundSlider" type="HSlider" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 85.0
+
+[node name="MusicLabel" type="Label" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 10
+text = "میزان موسیقی متن:"
+horizontal_alignment = 2
+text_direction = 3
+
+[node name="MusicSlider" type="HSlider" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 75.0
+
+[node name="CloseSettingsBtn" type="Button" parent="Modals/SettingsModal/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "ذخیره و بازگشت"
+
+[node name="LoreModal" type="PanelContainer" parent="Modals"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -145.0
+offset_right = 260.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(260, 145)
+
+[node name="MarginContainer" type="MarginContainer" parent="Modals/LoreModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Modals/LoreModal/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Modals/LoreModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.96, 0.8, 0.35, 1)
+text = "کتاب کهن اسپیناس: افسانه و رویدادها"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="ChapterHBox" type="HBoxContainer" parent="Modals/LoreModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Chapter1Btn" type="Button" parent="Modals/LoreModal/MarginContainer/VBoxContainer/ChapterHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "۱. اشک آناهیتا"
+
+[node name="Chapter2Btn" type="Button" parent="Modals/LoreModal/MarginContainer/VBoxContainer/ChapterHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "۲. هجوم ظلمات"
+
+[node name="Chapter3Btn" type="Button" parent="Modals/LoreModal/MarginContainer/VBoxContainer/ChapterHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "۳. قهرمانان و یاران"
+
+[node name="Chapter4Btn" type="Button" parent="Modals/LoreModal/MarginContainer/VBoxContainer/ChapterHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 11
+text = "۴. هدف دمو (آرک ۱)"
+
+[node name="StoryRichText" type="RichTextLabel" parent="Modals/LoreModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("3_font")
+theme_override_fonts/bold_font = ExtResource("4_bold")
+theme_override_font_sizes/normal_font_size = 11
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "در حال بارگذاری متن تاریخچه..."
+scroll_following = false
+autowrap_mode = 3
+text_direction = 3
+
+[node name="CloseLoreBtn" type="Button" parent="Modals/LoreModal/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_bold")
+theme_override_font_sizes/font_size = 11
+text = "بازگشت به منو"

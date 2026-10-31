@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://df7nasim01"]
+
+[ext_resource type="Script" path="res://npcs/nasim/NasimMerchant.gd" id="1_nasim"]
+[ext_resource type="SpriteFrames" uid="uid://cnasimframes01" path="res://npcs/nasim/SpriteFrames_Nasim.tres" id="2_frames"]
+[ext_resource type="Script" path="res://components/InteractableComponent.gd" id="3_inter"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_talk"]
+radius = 36.0
+
+[node name="NasimMerchant" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_nasim")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="InteractableComponent" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_inter")
+prompt_message = "گفتگو و معامله با نسیم"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+shape = SubResource("CircleShape2D_talk")

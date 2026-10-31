@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://df7shockwave01"]
+
+[ext_resource type="Script" path="res://characters/bosses/crusher/ShockwaveProjectile.gd" id="1_shock"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projectiles/shockwave.png" id="2_tex"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="3_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(14, 18)
+
+[node name="ShockwaveProjectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_shock")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_col")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -9)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_hit")
+faction = 1
+damage = 1
+knockback_force = 190.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_col")

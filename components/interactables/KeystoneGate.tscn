@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://df7keystonegate01"]
+
+[ext_resource type="Script" path="res://components/interactables/KeystoneGate.gd" id="1_gate"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/keystone_gate.png" id="2_spr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(24, 96)
+
+[node name="KeystoneGate" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_gate")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_spr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gate")

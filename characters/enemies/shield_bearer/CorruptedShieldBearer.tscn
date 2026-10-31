@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://df7shieldbearer01"]
+
+[ext_resource type="Script" path="res://characters/enemies/shield_bearer/CorruptedShieldBearer.gd" id="1_bearer"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/shield_bearer/bearer_idle.png" id="2_spr"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="3_hlth"]
+[ext_resource type="Script" path="res://characters/enemies/shield_bearer/GuardHurtbox.gd" id="4_guard"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="5_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(24, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_touch"]
+size = Vector2(26, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_guard"]
+size = Vector2(16, 36)
+
+[node name="CorruptedShieldBearer" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_bearer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -22)
+texture = ExtResource("2_spr")
+
+[node name="FloorDetector" type="RayCast2D" parent="Visuals"]
+position = Vector2(16, -4)
+target_position = Vector2(0, 26)
+collision_mask = 1
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_hlth")
+max_health = 4
+i_frame_duration = 0.25
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -19)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_guard")
+faction = 1
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_guard")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -19)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("5_hit")
+faction = 1
+damage = 1
+knockback_force = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_touch")

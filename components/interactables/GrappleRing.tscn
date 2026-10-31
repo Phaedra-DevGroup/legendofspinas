@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://df7grapplering01"]
+
+[ext_resource type="Script" path="res://components/interactables/GrappleRing.gd" id="1_ring"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/grapple_ring.png" id="2_tex"]
+
+[node name="GrappleRing" type="Node2D" groups=["grapple_rings"]]
+script = ExtResource("1_ring")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 10)
+texture = ExtResource("2_tex")

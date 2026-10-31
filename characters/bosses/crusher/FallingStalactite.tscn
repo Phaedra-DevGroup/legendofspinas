@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://df7stalactite01"]
+
+[ext_resource type="Script" path="res://characters/bosses/crusher/FallingStalactite.gd" id="1_stala"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/crusher/fx/stalactite.png" id="2_spr"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/crusher/fx/warning_reticle.png" id="3_ret"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="4_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stala"]
+size = Vector2(14, 28)
+
+[node name="FallingStalactite" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_stala")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_spr")
+
+[node name="ReticleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_ret")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_stala")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("4_hit")
+faction = 1
+damage = 1
+knockback_force = 140.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_stala")

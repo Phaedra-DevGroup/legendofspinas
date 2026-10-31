@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://cnasimframes01"]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_idle_0.png" id="1_id0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_idle_1.png" id="2_id1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_idle_2.png" id="3_id2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_idle_3.png" id="4_id3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_talk_0.png" id="5_tk0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_talk_1.png" id="6_tk1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_talk_2.png" id="7_tk2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_trade_0.png" id="8_tr0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_trade_1.png" id="9_tr1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_trade_2.png" id="10_tr2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/nasim/nasim_trade_3.png" id="11_tr3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_id0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_id1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_id2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_id3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tk2")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_tr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_tr3")
+}],
+"loop": true,
+"name": &"trade",
+"speed": 5.0
+}]

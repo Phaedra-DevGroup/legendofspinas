@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://df7blightedwolf01"]
+
+[ext_resource type="Script" path="res://characters/enemies/blighted_wolf/BlightedWolf.gd" id="1_wolf"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/blighted_wolf/wolf_run_0.png" id="2_r0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/blighted_wolf/wolf_run_1.png" id="3_r1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/blighted_wolf/wolf_run_2.png" id="4_r2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/blighted_wolf/wolf_run_3.png" id="5_r3"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="6_hlth"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="7_hurt"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="8_hit"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wolf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r3")
+}],
+"loop": true,
+"name": &"run",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(28, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_touch"]
+size = Vector2(30, 20)
+
+[node name="BlightedWolf" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_wolf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_wolf")
+animation = &"run"
+autoplay = "run"
+
+[node name="FloorDetector" type="RayCast2D" parent="Visuals"]
+position = Vector2(16, -2)
+target_position = Vector2(0, 18)
+collision_mask = 1
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("6_hlth")
+max_health = 2
+i_frame_duration = 0.25
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -9)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("7_hurt")
+faction = 1
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_touch")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -9)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("8_hit")
+faction = 1
+damage = 1
+knockback_force = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_touch")

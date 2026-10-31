@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://cpooladframes01"]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_idle_0.png" id="1_id0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_idle_1.png" id="2_id1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_idle_2.png" id="3_id2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_idle_3.png" id="4_id3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_forge_0.png" id="5_fg0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_forge_1.png" id="6_fg1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_forge_2.png" id="7_fg2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_forge_3.png" id="8_fg3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_talk_0.png" id="9_tk0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_talk_1.png" id="10_tk1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/master_poolad/poolad_talk_2.png" id="11_tk2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fg3")
+}],
+"loop": true,
+"name": &"forge",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_id0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_id1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_id2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_id3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_tk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_tk2")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 5.0
+}]

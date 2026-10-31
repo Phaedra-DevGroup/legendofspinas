@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpooladnpc01"]
+
+[ext_resource type="Script" path="res://npcs/master_poolad/MasterPoolad.gd" id="1_poolad"]
+[ext_resource type="Script" path="res://components/InteractableComponent.gd" id="2_interact"]
+[ext_resource type="SpriteFrames" uid="uid://cpooladframes01" path="res://npcs/master_poolad/SpriteFrames_Poolad.tres" id="3_frames"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_npc"]
+radius = 12.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_range"]
+radius = 36.0
+
+[node name="MasterPoolad" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_poolad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -21)
+shape = SubResource("CapsuleShape2D_npc")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("3_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="DialogueIndicator" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -52)
+
+[node name="InteractableComponent" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_interact")
+prompt_message = "Talk & Forge"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, -21)
+shape = SubResource("CircleShape2D_range")

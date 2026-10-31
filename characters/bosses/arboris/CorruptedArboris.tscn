@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://characters/bosses/arboris/CorruptedArboris.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/arboris/arboris_idle.png" id="2_tex"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="3_hlth"]
+[ext_resource type="Script" path="res://characters/bosses/arboris/ArborisBarkHurtbox.gd" id="4_hurt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(50, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(62, 132)
+
+[sub_resource type="Gradient" id="Gradient_crystal"]
+colors = PackedColorArray(0.9, 0.6, 1, 1, 0.6, 0.25, 0.95, 0)
+
+[node name="CorruptedArboris" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -75)
+texture = ExtResource("2_tex")
+
+[node name="CrystalMarker" type="Marker2D" parent="Visuals"]
+position = Vector2(24, -92)
+
+[node name="CrystalGlow" type="CPUParticles2D" parent="Visuals/CrystalMarker"]
+amount = 10
+lifetime = 0.9
+emission_shape = 1
+emission_sphere_radius = 9.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -20)
+initial_velocity_min = 4.0
+initial_velocity_max = 16.0
+scale_amount_min = 1.0
+scale_amount_max = 2.5
+color_ramp = SubResource("Gradient_crystal")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_hlth")
+max_health = 108
+i_frame_duration = 0.2
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -66)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_hurt")
+faction = 1
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_hurt")

@@ -1,0 +1,98 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3 uid="uid://df7bardiaframes01"]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_0.png" id="1_at0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_1.png" id="2_at1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_2.png" id="3_at2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_3.png" id="4_at3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/jump_2.png" id="5_fall"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_0.png" id="6_id0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_1.png" id="7_id1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_2.png" id="8_id2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_3.png" id="9_id3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_4.png" id="10_id4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/jump_1.png" id="11_jp1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_0.png" id="12_rn0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_1.png" id="13_rn1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_2.png" id="14_rn2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_3.png" id="15_rn3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_4.png" id="16_rn4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_5.png" id="17_rn5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_at0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_at1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_at2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_at3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fall")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_id0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_id1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_id2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_id3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_id4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_jp1")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_rn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_rn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rn2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_rn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rn5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]

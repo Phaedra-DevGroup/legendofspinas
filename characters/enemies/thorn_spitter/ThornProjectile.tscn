@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://df7thornproj01"]
+
+[ext_resource type="Script" path="res://characters/enemies/thorn_spitter/ThornProjectile.gd" id="1_spike"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projectiles/thorn_spike.png" id="2_spr"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="3_hit"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
+radius = 4.0
+
+[node name="ThornProjectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_spike")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_spr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_proj")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_hit")
+faction = 1
+damage = 1
+knockback_force = 120.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_proj")

@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://df7thornspitter01"]
+
+[ext_resource type="Script" path="res://characters/enemies/thorn_spitter/CorruptedThornSpitter.gd" id="1_spitter"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/thorn_spitter/spitter_idle.png" id="2_spr"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="3_hlth"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="4_hurt"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="5_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(22, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_touch"]
+radius = 12.0
+
+[node name="CorruptedThornSpitter" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_spitter")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -14)
+texture = ExtResource("2_spr")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_hlth")
+max_health = 3
+i_frame_duration = 0.2
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -12)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_hurt")
+faction = 1
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_touch")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -12)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("5_hit")
+faction = 1
+damage = 1
+knockback_force = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_touch")

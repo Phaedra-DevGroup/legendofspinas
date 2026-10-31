@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://df7needlebat01"]
+
+[ext_resource type="Script" path="res://characters/enemies/needle_bat/NeedleBat.gd" id="1_bat"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/needle_bat/bat_fly_0.png" id="2_f0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/needle_bat/bat_fly_1.png" id="3_f1"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="4_hlth"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="5_hurt"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="6_hit"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f1")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_col"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_touch"]
+radius = 9.0
+
+[node name="NeedleBat" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_bat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_col")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+sprite_frames = SubResource("SpriteFrames_bat")
+animation = &"fly"
+autoplay = "fly"
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("4_hlth")
+max_health = 1
+i_frame_duration = 0.2
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("5_hurt")
+faction = 1
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_touch")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("6_hit")
+faction = 1
+damage = 1
+knockback_force = 130.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_touch")

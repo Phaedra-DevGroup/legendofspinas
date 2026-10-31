@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://characters/bosses/arboris/RootSpike.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/arboris/root_spike.png" id="2_tex"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="3_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_root"]
+size = Vector2(18, 54)
+
+[node name="RootSpike" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Root" type="Sprite2D" parent="."]
+position = Vector2(0, -30)
+texture = ExtResource("2_tex")
+
+[node name="Crack" type="Polygon2D" parent="."]
+z_index = 2
+color = Color(0.78, 0.42, 1, 0.9)
+polygon = PackedVector2Array(-16, 0, -6, -2, 0, -1, 7, -3, 16, 0, 6, 1, -5, 1)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -27)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_hit")
+faction = 1
+damage = 1
+knockback_force = 260.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_root")

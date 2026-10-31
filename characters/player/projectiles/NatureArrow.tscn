@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://df7naturearrow01"]
+
+[ext_resource type="Script" path="res://characters/player/projectiles/NatureArrow.gd" id="1_arrow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projectiles/nature_arrow.png" id="2_tex"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="3_hitbox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(26, 14)
+
+[node name="NatureArrow" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_arrow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_hit")
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_area_entered"]

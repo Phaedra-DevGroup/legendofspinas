@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://ctouchcontrols01"]
+
+[ext_resource type="Script" path="res://ui/touch_controls/TouchControls.gd" id="1_touch"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_left.png" id="2_left"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_right.png" id="3_right"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_jump.png" id="4_jump"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_attack.png" id="5_attack"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_interact.png" id="6_interact"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_slide.png" id="7_slide"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_grapple.png" id="8_grapple"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpad"]
+size = Vector2(58, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_action"]
+radius = 32.0
+
+[node name="TouchControls" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_touch")
+
+[node name="Controls" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BtnLeft" type="TouchScreenButton" parent="Controls"]
+position = Vector2(24, 280)
+texture_normal = ExtResource("2_left")
+shape = SubResource("RectangleShape2D_dpad")
+shape_centered = true
+shape_visible = false
+action = "move_left"
+passby_press = true
+
+[node name="BtnRight" type="TouchScreenButton" parent="Controls"]
+position = Vector2(84, 280)
+texture_normal = ExtResource("3_right")
+shape = SubResource("RectangleShape2D_dpad")
+shape_centered = true
+shape_visible = false
+action = "move_right"
+passby_press = true
+
+[node name="BtnDown" type="TouchScreenButton" parent="Controls"]
+position = Vector2(436, 280)
+texture_normal = ExtResource("7_slide")
+shape = SubResource("CircleShape2D_action")
+shape_centered = true
+shape_visible = false
+action = "move_down"
+passby_press = true
+
+[node name="BtnAttack" type="TouchScreenButton" parent="Controls"]
+position = Vector2(502, 280)
+texture_normal = ExtResource("5_attack")
+shape = SubResource("CircleShape2D_action")
+shape_centered = true
+shape_visible = false
+action = "attack"
+passby_press = true
+
+[node name="BtnJump" type="TouchScreenButton" parent="Controls"]
+position = Vector2(568, 280)
+texture_normal = ExtResource("4_jump")
+shape = SubResource("CircleShape2D_action")
+shape_centered = true
+shape_visible = false
+action = "jump"
+passby_press = true
+
+[node name="BtnInteract" type="TouchScreenButton" parent="Controls"]
+position = Vector2(502, 214)
+texture_normal = ExtResource("6_interact")
+shape = SubResource("CircleShape2D_action")
+shape_centered = true
+shape_visible = false
+action = "interact"
+passby_press = true
+
+[node name="BtnGrapple" type="TouchScreenButton" parent="Controls"]
+position = Vector2(568, 214)
+texture_normal = ExtResource("8_grapple")
+shape = SubResource("CircleShape2D_action")
+shape_centered = true
+shape_visible = false
+action = "grapple"
+passby_press = true

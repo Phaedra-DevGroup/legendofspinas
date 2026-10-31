@@ -1,0 +1,827 @@
+[gd_scene format=3 uid="uid://df7forgelevel01"]
+
+[ext_resource type="Script" path="res://levels/Level_Forge.gd" id="1_forge"]
+[ext_resource type="PackedScene" path="res://characters/player/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://npcs/master_poolad/MasterPoolad.tscn" id="4_poolad"]
+[ext_resource type="PackedScene" path="res://ui/touch_controls/TouchControls.tscn" id="5_touch"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn.ttf" id="6_font"]
+[ext_resource type="FontFile" path="res://assets/fonts/Vazirmatn-Bold.ttf" id="7_bold"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/ground_floor.png" id="8_ground"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/floating_ledge.png" id="9_ledge"]
+[ext_resource type="PackedScene" path="res://characters/enemies/needle_bat/NeedleBat.tscn" id="10_bat"]
+[ext_resource type="PackedScene" path="res://characters/enemies/blighted_wolf/BlightedWolf.tscn" id="11_wolf"]
+[ext_resource type="PackedScene" path="res://characters/enemies/hollow_villager/HollowVillager.tscn" id="12_villager"]
+[ext_resource type="PackedScene" path="res://characters/enemies/thorn_spitter/CorruptedThornSpitter.tscn" id="13_spitter"]
+[ext_resource type="PackedScene" path="res://characters/hazards/MargMayehThorns.tscn" id="14_thorns"]
+[ext_resource type="PackedScene" path="res://components/collectibles/AncientScrapCollectible.tscn" id="15_scrap"]
+[ext_resource type="PackedScene" path="res://components/collectibles/AncientKeystone.tscn" id="16_keystone"]
+[ext_resource type="PackedScene" path="res://components/collectibles/GoldenPomegranate.tscn" id="17_pom"]
+[ext_resource type="PackedScene" path="res://components/interactables/KeystoneGate.tscn" id="18_gate"]
+[ext_resource type="PackedScene" path="res://components/interactables/LoreStele.tscn" id="19_stele"]
+[ext_resource type="PackedScene" path="res://components/interactables/AncientBeacon.tscn" id="20_beacon"]
+[ext_resource type="PackedScene" path="res://characters/bosses/crusher/CrusherOfTheRuins.tscn" id="21_crusher"]
+[ext_resource type="PackedScene" path="res://npcs/nasim/NasimMerchant.tscn" id="22_nasim"]
+[ext_resource type="PackedScene" path="res://characters/enemies/shield_bearer/CorruptedShieldBearer.tscn" id="23_bearer"]
+[ext_resource type="PackedScene" path="res://characters/enemies/mist_raven/MistRaven.tscn" id="24_raven"]
+[ext_resource type="PackedScene" path="res://characters/enemies/spore_crawler/SporeCrawler.tscn" id="25_crawler"]
+[ext_resource type="PackedScene" path="res://characters/bosses/lurker/HollowLurker.tscn" id="26_lurker"]
+[ext_resource type="PackedScene" path="res://components/interactables/GrappleRing.tscn" id="27_ring"]
+[ext_resource type="PackedScene" path="res://components/interactables/ZalSanctuary.tscn" id="28_zal"]
+[ext_resource type="PackedScene" path="res://characters/hazards/ThornArch.tscn" id="29_arch"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/pit_gap.png" id="30_pit"]
+[ext_resource type="PackedScene" path="res://ui/pause_menu/PauseMenu.tscn" id="31_pause"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_menu_normal.png" id="32_menu_norm"]
+[ext_resource type="Texture2D" path="res://assets/ui/btn_menu_pressed.png" id="33_menu_press"]
+[ext_resource type="Script" path="res://levels/ZoneBackdrop.gd" id="40_backdrop"]
+[ext_resource type="Texture2D" path="res://assets/ui/theme/icon_scrap.png" id="41_icon_scrap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(830, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor2"]
+size = Vector2(4855, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(32, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat"]
+size = Vector2(130, 14)
+
+[node name="Level_Forge" type="Node2D"]
+script = ExtResource("1_forge")
+
+[node name="ZoneBackdrop" type="Node2D" parent="."]
+script = ExtResource("40_backdrop")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="MainFloor" type="StaticBody2D" parent="Environment"]
+position = Vector2(1900, 344)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/MainFloor"]
+texture_repeat = 2
+position = Vector2(1000, 0)
+texture = ExtResource("8_ground")
+region_enabled = true
+region_rect = Rect2(0, 0, 7200, 48)
+
+[node name="FloorLeft" type="CollisionShape2D" parent="Environment/MainFloor"]
+position = Vector2(-1535, 0)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="FloorRight" type="CollisionShape2D" parent="Environment/MainFloor"]
+position = Vector2(1472.5, 0)
+shape = SubResource("RectangleShape2D_floor2")
+
+[node name="PitGap" type="Sprite2D" parent="Environment"]
+position = Vector2(870, 344)
+texture = ExtResource("30_pit")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(-16, 180)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LeftBoundary"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(5816, 180)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/RightBoundary"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="PlatTerrace1" type="StaticBody2D" parent="Environment"]
+position = Vector2(240, 258)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatTerrace1"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatTerrace1"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatTerrace2" type="StaticBody2D" parent="Environment"]
+position = Vector2(360, 204)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatTerrace2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatTerrace2"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatTerrace3" type="StaticBody2D" parent="Environment"]
+position = Vector2(480, 152)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatTerrace3"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatTerrace3"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatTerrace4" type="StaticBody2D" parent="Environment"]
+position = Vector2(680, 255)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatTerrace4"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatTerrace4"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatForge1" type="StaticBody2D" parent="Environment"]
+position = Vector2(1080, 252)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatForge1"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatForge1"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatForge2" type="StaticBody2D" parent="Environment"]
+position = Vector2(1400, 255)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatForge2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatForge2"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatMine1" type="StaticBody2D" parent="Environment"]
+position = Vector2(2080, 252)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatMine1"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatMine1"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatMine2" type="StaticBody2D" parent="Environment"]
+position = Vector2(2260, 200)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatMine2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatMine2"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatMine3" type="StaticBody2D" parent="Environment"]
+position = Vector2(2480, 252)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatMine3"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatMine3"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatMine4" type="StaticBody2D" parent="Environment"]
+position = Vector2(2920, 248)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatMine4"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatMine4"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatMine5" type="StaticBody2D" parent="Environment"]
+position = Vector2(3240, 196)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatMine5"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatMine5"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatBuffer1" type="StaticBody2D" parent="Environment"]
+position = Vector2(3700, 255)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatBuffer1"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatBuffer1"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatBuffer2" type="StaticBody2D" parent="Environment"]
+position = Vector2(4050, 205)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatBuffer2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatBuffer2"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatBuffer3" type="StaticBody2D" parent="Environment"]
+position = Vector2(4240, 252)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatBuffer3"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatBuffer3"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatArena1" type="StaticBody2D" parent="Environment"]
+position = Vector2(4680, 255)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatArena1"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatArena1"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+[node name="PlatArena2" type="StaticBody2D" parent="Environment"]
+position = Vector2(5200, 210)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/PlatArena2"]
+position = Vector2(0, 9)
+texture = ExtResource("9_ledge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatArena2"]
+shape = SubResource("RectangleShape2D_plat")
+one_way_collision = true
+one_way_collision_margin = 6.0
+
+
+
+[node name="KeystoneGate" parent="Environment" instance=ExtResource("18_gate")]
+position = Vector2(4420, 272)
+
+[node name="LoreStele1" parent="Environment" groups=["lore_steles"] instance=ExtResource("19_stele")]
+position = Vector2(160, 320)
+lore_title = "کتیبه کهن: اشک آناهیتا"
+lore_text = "«روستای اسپیناس قرن‌ها در پناه گوهر فیروزه‌ای قله سرسبز بود؛ تا آنکه سایه شوم ظلمات آب‌ها را زهر کرد...»"
+
+[node name="LoreStele2" parent="Environment" groups=["lore_steles"] instance=ExtResource("19_stele")]
+position = Vector2(1980, 320)
+lore_title = "کتیبه هشدار: سنگ‌شکن ویرانه‌ها"
+lore_text = "«محراب شرقی در تسخیر سنگ‌شکنی است که ضربات پتکش کوه را می‌لرزاند. ۲ کلیدسنگ را بیاب تا قفل دروازه بگشاید.»"
+
+[node name="AncientBeacon" parent="Environment" instance=ExtResource("20_beacon")]
+position = Vector2(5600, 320)
+
+[node name="GrappleRing1" parent="Environment" instance=ExtResource("27_ring")]
+position = Vector2(800, 170)
+
+[node name="GrappleRing2" parent="Environment" instance=ExtResource("27_ring")]
+position = Vector2(870, 164)
+
+[node name="GrappleRing3" parent="Environment" instance=ExtResource("27_ring")]
+position = Vector2(940, 170)
+
+[node name="ZalSanctuary1" parent="Environment" instance=ExtResource("28_zal")]
+position = Vector2(1660, 320)
+lore_title = "استراحتگاه زال کهنسال (آواز کوهستان)"
+lore_hint = "«آتش را که گرم کردی، چشم بر پشت‌گردنه‌ها داشته باش... این کوهستان خاطره‌های تلخی دارد.»"
+
+[node name="ZalSanctuary2" parent="Environment" instance=ExtResource("28_zal")]
+position = Vector2(3540, 320)
+lore_title = "استراحتگاه زال کهنسال (نجوای سنگ)"
+lore_hint = "«سنگ‌شکن از غرش کوره می‌هراسد، اما از ضربه‌های پی‌درپی تو خواهد ترسید. نفس بگیر، دیگر رهایی نیست.»"
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Thorns1" parent="Hazards" groups=["marg_mayeh"] instance=ExtResource("14_thorns")]
+position = Vector2(310, 320)
+
+[node name="Thorns2" parent="Hazards" groups=["marg_mayeh"] instance=ExtResource("14_thorns")]
+position = Vector2(2140, 320)
+
+[node name="Thorns3" parent="Hazards" groups=["marg_mayeh"] instance=ExtResource("14_thorns")]
+position = Vector2(2980, 320)
+
+[node name="Thorns4" parent="Hazards" groups=["marg_mayeh"] instance=ExtResource("14_thorns")]
+position = Vector2(3820, 320)
+
+[node name="ThornArch1" parent="Hazards" instance=ExtResource("29_arch")]
+position = Vector2(1480, 294)
+
+[node name="ThornArch2" parent="Hazards" instance=ExtResource("29_arch")]
+position = Vector2(4180, 294)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Scrap1" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(240, 220)
+
+[node name="Scrap2" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(340, 160)
+
+[node name="Scrap3" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(680, 210)
+
+[node name="Scrap4" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(1080, 200)
+
+[node name="Scrap5" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(1400, 210)
+
+[node name="Scrap6" parent="Collectibles" instance=ExtResource("15_scrap")]
+position = Vector2(3700, 210)
+
+[node name="Keystone1" parent="Collectibles" groups=["keystones"] instance=ExtResource("16_keystone")]
+position = Vector2(460, 120)
+
+[node name="Keystone2" parent="Collectibles" groups=["keystones"] instance=ExtResource("16_keystone")]
+position = Vector2(3340, 320)
+
+[node name="GoldenPomegranate1" parent="Collectibles" groups=["pomegranates"] instance=ExtResource("17_pom")]
+position = Vector2(2260, 150)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="NeedleBat1" parent="Enemies" instance=ExtResource("10_bat")]
+position = Vector2(280, 150)
+
+[node name="BlightedWolf1" parent="Enemies" instance=ExtResource("11_wolf")]
+position = Vector2(520, 320)
+
+[node name="NeedleBat2" parent="Enemies" instance=ExtResource("10_bat")]
+position = Vector2(720, 160)
+
+[node name="NeedleBat3" parent="Enemies" instance=ExtResource("10_bat")]
+position = Vector2(2800, 140)
+
+[node name="ThornSpitter1" parent="Enemies" instance=ExtResource("13_spitter")]
+position = Vector2(2080, 190)
+
+[node name="HollowVillager1" parent="Enemies" instance=ExtResource("12_villager")]
+position = Vector2(2420, 320)
+
+[node name="BlightedWolf2" parent="Enemies" instance=ExtResource("11_wolf")]
+position = Vector2(2650, 320)
+
+[node name="ThornSpitter2" parent="Enemies" instance=ExtResource("13_spitter")]
+position = Vector2(4240, 190)
+
+[node name="HollowVillager2" parent="Enemies" instance=ExtResource("12_villager")]
+position = Vector2(4300, 320)
+
+[node name="CorruptedShieldBearer1" parent="Enemies" instance=ExtResource("23_bearer")]
+position = Vector2(1880, 320)
+
+[node name="CorruptedShieldBearer2" parent="Enemies" instance=ExtResource("23_bearer")]
+position = Vector2(3860, 320)
+
+[node name="MistRaven1" parent="Enemies" instance=ExtResource("24_raven")]
+position = Vector2(620, 140)
+
+[node name="MistRaven2" parent="Enemies" instance=ExtResource("24_raven")]
+position = Vector2(3980, 140)
+
+[node name="SporeCrawler1" parent="Enemies" instance=ExtResource("25_crawler")]
+position = Vector2(2220, 320)
+
+[node name="SporeCrawler2" parent="Enemies" instance=ExtResource("25_crawler")]
+position = Vector2(4120, 320)
+
+[node name="HollowLurker" parent="Enemies" instance=ExtResource("26_lurker")]
+position = Vector2(3120, 320)
+
+[node name="MasterPoolad" parent="." instance=ExtResource("4_poolad")]
+position = Vector2(1250, 320)
+
+[node name="NasimMerchant" parent="." instance=ExtResource("22_nasim")]
+position = Vector2(5430, 320)
+
+[node name="BossArena" type="Node2D" parent="."]
+
+[node name="CrusherOfTheRuins" parent="BossArena" instance=ExtResource("21_crusher")]
+position = Vector2(4950, 320)
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(150, 320)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -20)
+position_smoothing_enabled = true
+limit_left = 0
+limit_top = 0
+limit_right = 5800
+limit_bottom = 360
+
+[node name="TouchControls" parent="." instance=ExtResource("5_touch")]
+
+[node name="TopHUD" type="CanvasLayer" parent="."]
+layer = 15
+
+[node name="SafeArea" type="MarginContainer" parent="TopHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="TopRow" type="HBoxContainer" parent="TopHUD/SafeArea"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="StatusPanel" type="PanelContainer" parent="TopHUD/SafeArea/TopRow"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="StatusVBox" type="VBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="HeartsHBox" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="CountersHBox" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="ScrapIcon" type="TextureRect" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("41_icon_scrap")
+stretch_mode = 3
+
+[node name="ScrapsLabel" type="Label" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.98, 0.84, 0.45, 1)
+text = "۰"
+
+[node name="CounterGap" type="Control" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="KeystoneIcons" type="HBoxContainer" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="HeroStatus" type="Label" parent="TopHUD/SafeArea/TopRow/StatusPanel/StatusVBox/CountersHBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.55, 0.9, 0.88, 0.9)
+text = "بردیا"
+text_direction = 3
+
+[node name="RowSpacer" type="Control" parent="TopHUD/SafeArea/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PauseBtn" type="TextureButton" parent="TopHUD/SafeArea/TopRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 0
+texture_normal = ExtResource("32_menu_norm")
+texture_pressed = ExtResource("33_menu_press")
+stretch_mode = 3
+
+[node name="TopCenter" type="VBoxContainer" parent="TopHUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 8.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="QuestPanel" type="PanelContainer" parent="TopHUD/TopCenter"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="QuestBanner" type="Label" parent="TopHUD/TopCenter/QuestPanel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.92, 0.9, 0.82, 1)
+text = "ماموریت: به کوره استاد پولاد در مرکز منطقه برسید."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_direction = 3
+
+[node name="BossHUD" type="VBoxContainer" parent="TopHUD/TopCenter"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="BossTitle" type="Label" parent="TopHUD/TopCenter/BossHUD"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 0.5, 0.55, 1)
+text = "سنگ‌شکن ویرانه‌ها (خادم مسخ‌شده مرگ‌مایه)"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="BossProgressBar" type="ProgressBar" parent="TopHUD/TopCenter/BossHUD"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+max_value = 20.0
+value = 20.0
+show_percentage = false
+
+[node name="ActionPromptPanel" type="PanelContainer" parent="TopHUD"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -36.0
+offset_right = 90.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="ActionPrompt" type="Label" parent="TopHUD/ActionPromptPanel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.55, 0.98, 0.92, 1)
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 3
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+layer = 20
+visible = false
+
+[node name="DialogueContainer" type="PanelContainer" parent="DialogueUI"]
+layout_direction = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -12.0
+offset_right = 270.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(230, 86)
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueUI/DialogueContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogueUI/DialogueContainer/MarginContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SpeakerName" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.95, 0.8, 0.35, 1)
+text = "استاد پولاد"
+horizontal_alignment = 2
+text_direction = 3
+language = "fa"
+
+[node name="DialogueText" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+text = "درود بر تو شاگرد..."
+horizontal_alignment = 2
+autowrap_mode = 3
+text_direction = 3
+language = "fa"
+
+[node name="PromptHint" type="Label" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 0.8)
+text = "[یک گزینه را انتخاب کنید]"
+horizontal_alignment = 2
+text_direction = 3
+language = "fa"
+
+[node name="ChoiceVBox" type="GridContainer" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="QuestBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "درخواست ماموریت"
+text_direction = 3
+language = "fa"
+
+[node name="UpgradeBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "ارتقای سلاح (۵ قطعه)"
+text_direction = 3
+language = "fa"
+
+[node name="HealBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "استراحت و درمان"
+text_direction = 3
+language = "fa"
+
+[node name="CloseBtn" type="Button" parent="DialogueUI/DialogueContainer/MarginContainer/VBoxContainer/ChoiceVBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "بازگشت"
+text_direction = 3
+language = "fa"
+
+[node name="VictoryUI" type="CanvasLayer" parent="."]
+layer = 25
+visible = false
+
+[node name="VictoryPanel" type="PanelContainer" parent="VictoryUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -90.0
+offset_right = 200.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(190, 105)
+
+[node name="MarginContainer" type="MarginContainer" parent="VictoryUI/VictoryPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VictoryUI/VictoryPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="VictoryTitle" type="Label" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.96, 0.82, 0.3, 1)
+text = "پیروزی در آرک اول: ویرانه‌های اسپیناس"
+horizontal_alignment = 1
+text_direction = 3
+
+[node name="VictoryDesc" type="Label" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+text = "سنگ‌شکن ویرانه‌ها شکست خورد و مشعل باستانی چکاد شعله‌ور گشت. چرخ‌دنده باستانی کوره پولاد را بازافروخت و مسیر جنگل مه‌آلود (آرک دوم) گشوده شد!"
+autowrap_mode = 2
+text_direction = 3
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="RestartBtn" type="Button" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer/ButtonsHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 11
+text = "شروع مجدد دمو"
+
+[node name="MenuBtn" type="Button" parent="VictoryUI/VictoryPanel/MarginContainer/VBoxContainer/ButtonsHBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_bold")
+theme_override_font_sizes/font_size = 11
+text = "منوی اصلی"
+
+[node name="PauseMenu" parent="." instance=ExtResource("31_pause")]

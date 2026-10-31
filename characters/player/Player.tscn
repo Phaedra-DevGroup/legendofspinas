@@ -1,0 +1,234 @@
+[gd_scene load_steps=33 format=3 uid="uid://bxespinasplayer"]
+
+[ext_resource type="Script" path="res://characters/player/PlayerController.gd" id="1_pc"]
+[ext_resource type="Script" path="res://characters/player/state_machine/StateMachine.gd" id="2_sm"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerIdleState.gd" id="3_idle"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerRunState.gd" id="4_run"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerJumpState.gd" id="5_jump"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerFallState.gd" id="6_fall"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerAttackState.gd" id="7_atk"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerInteractState.gd" id="8_int"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_0.png" id="9_id0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_1.png" id="10_id1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_2.png" id="11_id2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_3.png" id="12_id3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/idle_4.png" id="13_id4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_0.png" id="14_rn0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_1.png" id="15_rn1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_2.png" id="16_rn2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_3.png" id="17_rn3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_4.png" id="18_rn4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/run_5.png" id="19_rn5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/jump_1.png" id="20_jp1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/jump_2.png" id="21_jp2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_0.png" id="22_at0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_1.png" id="23_at1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_2.png" id="24_at2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/bardia/attack_3.png" id="25_at3"]
+[ext_resource type="Script" path="res://components/HealthComponent.gd" id="26_hlth"]
+[ext_resource type="Script" path="res://components/HurtboxComponent.gd" id="27_hurt"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="28_hit"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projectiles/light_slash.png" id="29_slash"]
+[ext_resource type="Shader" path="res://characters/player/ChargeGlow.gdshader" id="30_glow"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerGrappleState.gd" id="31_grp"]
+[ext_resource type="Script" path="res://characters/player/state_machine/states/PlayerSlideState.gd" id="32_sld"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_charge"]
+shader = ExtResource("30_glow")
+shader_parameter/glow_color = Color(0.25, 1, 0.92, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 8.0
+height = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_melee"]
+size = Vector2(40, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hurt"]
+radius = 9.0
+height = 36.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bardia"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_at0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_at1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_at2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_at3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_jp2")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_id0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_id1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_id2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_id3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_id4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_jp1")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_rn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_rn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rn2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_rn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_rn5")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_pc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -24)
+sprite_frames = SubResource("SpriteFrames_bardia")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="MeleeHitbox" type="Area2D" parent="Visuals"]
+position = Vector2(10, -18)
+collision_layer = 2
+collision_mask = 4
+monitoring = false
+script = ExtResource("28_hit")
+faction = 0
+damage = 1
+knockback_force = 180.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeHitbox"]
+shape = SubResource("RectangleShape2D_melee")
+
+[node name="SlashSprite" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(12, -18)
+texture = ExtResource("29_slash")
+
+[node name="ChargeGlow" type="ColorRect" parent="Visuals"]
+material = SubResource("ShaderMaterial_charge")
+visible = false
+offset_left = -30.0
+offset_top = -54.0
+offset_right = 30.0
+offset_bottom = 6.0
+
+[node name="GrappleRope" type="Line2D" parent="."]
+visible = false
+width = 1.0
+default_color = Color(0.74, 0.55, 0.24, 1)
+points = PackedVector2Array(0, -20, 0, -20)
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("26_hlth")
+max_health = 5
+i_frame_duration = 0.8
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("27_hurt")
+faction = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -18)
+shape = SubResource("CapsuleShape2D_hurt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="InteractionDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_interact")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_sm")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_idle")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("4_run")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("5_jump")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("6_fall")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("7_atk")
+
+[node name="Interact" type="Node" parent="StateMachine"]
+script = ExtResource("8_int")
+
+[node name="Grapple" type="Node" parent="StateMachine"]
+script = ExtResource("31_grp")
+
+[node name="Slide" type="Node" parent="StateMachine"]
+script = ExtResource("32_sld")

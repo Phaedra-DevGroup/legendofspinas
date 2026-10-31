@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://df7crystalspike01"]
+
+[ext_resource type="Script" path="res://characters/bosses/crusher/CrystalSpikeHazard.gd" id="1_spike"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/crusher/fx/crystal_spike.png" id="2_spr"]
+[ext_resource type="Script" path="res://components/HitboxComponent.gd" id="3_hit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spike"]
+size = Vector2(16, 28)
+
+[node name="CrystalSpikeHazard" type="Node2D"]
+script = ExtResource("1_spike")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_spr")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+position = Vector2(0, -14)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_hit")
+faction = 1
+damage = 1
+knockback_force = 160.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_spike")
